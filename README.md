@@ -13,6 +13,7 @@ This project is creating for Learn Laravel, VueJs, InertiaJs:
 
 - ```npm install --save-dev vue @vitejs/plugin-vue```
 - ```npm install @inertiajs/vue3```
+- ```npm install --save-dev eslint eslint-plugin-vue```
 
 ## License
 
