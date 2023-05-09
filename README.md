@@ -14,6 +14,9 @@ This project is creating for Learn Laravel, VueJs, InertiaJs:
 - ```npm install --save-dev vue @vitejs/plugin-vue```
 - ```npm install @inertiajs/vue3```
 - ```npm install --save-dev eslint eslint-plugin-vue```
+- ```composer require barryvdh/laravel-debugbar --dev```
+- ```composer require barryvdh/laravel-ide-helper --dev```
+- ```php artisan ide-helper:generate``` to Generate ide Helper
 
 ## License
 
