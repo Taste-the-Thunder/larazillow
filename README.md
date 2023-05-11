@@ -17,6 +17,7 @@ This project is creating for Learn Laravel, VueJs, InertiaJs:
 - ```composer require barryvdh/laravel-debugbar --dev```
 - ```composer require barryvdh/laravel-ide-helper --dev```
 - ```php artisan ide-helper:generate``` to Generate ide Helper
+- ```composer require tightenco/ziggy``` for route in VueJs
 
 ## License
 
