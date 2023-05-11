@@ -1,6 +1,6 @@
 <template>
-  <Link href="/">Index</Link>
-  <Link href="/show">Show</Link>
+  <Link href="/listing">Listing</Link>
+  <Link href="/listing/create">Create Listing</Link>
   <div v-if="flashSuccess" class="success">
     {{ flashSuccess }}
   </div>
