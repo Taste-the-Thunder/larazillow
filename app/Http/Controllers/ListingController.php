@@ -16,10 +16,33 @@ class ListingController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        return inertia('Listing/index',[
-            'listings' => Listing::orderByDesc('created_at')->paginate(10)
+        $filters = $request->only([
+            'priceFrom', 'priceTo', 'beds', 'baths', 'areaFrom', 'areaTo'
+        ]);
+        return inertia('Listing/index', [
+            'filters' => $filters,
+            'listings' => Listing::orderByDesc('created_at')
+                ->when(
+                    $filters['priceFrom'] ?? false,
+                    fn ($query, $value) => $query->where('price', '>=', $value)
+                )->when(
+                    $filters['priceTo'] ?? false,
+                    fn ($query, $value) => $query->where('price', '<=', $value)
+                )->when(
+                    $filters['beds'] ?? false,
+                    fn ($query, $value) => $query->where('beds', (int)$value < 6 ? '=' : '>=', $value)
+                )->when(
+                    $filters['baths'] ?? false,
+                    fn ($query, $value) => $query->where('baths', (int)$value < 6 ? '=' : '>=', $value)
+                )->when(
+                    $filters['areaFrom'] ?? false,
+                    fn ($query, $value) => $query->where('area', '>=', $value)
+                )->when(
+                    $filters['areaTo'] ?? false,
+                    fn ($query, $value) => $query->where('area', '<=', $value)
+                )->paginate(10)->withQueryString()
         ]);
     }
 
@@ -62,7 +85,7 @@ class ListingController extends Controller
         //     abort(403);
         // }
         $this->authorize('view', $listing);
-        return inertia('Listing/show',[
+        return inertia('Listing/show', [
             'listing' => $listing
         ]);
     }
@@ -108,6 +131,6 @@ class ListingController extends Controller
     public function destroy(Listing $listing)
     {
         $listing->delete();
-        return redirect()->back()->with('success','Listing was deleted!');
+        return redirect()->back()->with('success', 'Listing was deleted!');
     }
 }
